@@ -1,0 +1,17 @@
+{
+  "name": "blockchain_public",
+  "version": "1.0.0",
+  "description": "connect to live network",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ropsten"
+  ],
+  "author": "harisanthosh",
+  "license": "ISC"
+}

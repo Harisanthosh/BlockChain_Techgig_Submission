@@ -14,18 +14,25 @@ import {
 } from 'react-router-dom';
 import Lender from './Lender'
 import Borrower from './Borrower'
+import Admin from './Admin'
+import DryRun from './DryRun'
 import AlloyChain from './AlloyChain'
+import Login from './login'
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <Route path="/" exact={true} component={AlloyChain} >
+          <Route path="/" exact={true} component={Login} >
 
           </Route>
           <Route path="/lender" component={Lender} />
           <Route path="/borrower" component={Borrower} />
-          <Route path="/home-single" component={AlloyChain} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/dryrun" component={DryRun} />
+          <Route path="/login" component={Login} />
+          <Route path="/chain" component={AlloyChain} />
+          <Route path="/home-single" component={Login} />
         </div>
       </Router>
     );

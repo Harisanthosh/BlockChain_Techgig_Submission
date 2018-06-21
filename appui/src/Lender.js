@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap';
 import { alphacontract } from "./Setup";
 import { ethnode } from "./Setup";
 import ReactModal from 'react-modal';
+// import { Pie } from 'react-charts'
+import { PieChart, Legend } from 'react-easy-chart';
 import {
     BrowserRouter as Router,
     Route,
@@ -13,12 +15,14 @@ import {
     Redirect
 } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
+
 import img1 from './images/profile1.png';
 import img2 from './images/profile2.png';
 import img3 from './images/profile3.png';
 import img4 from './images/profile4.png';
 import img5 from './images/profile5.png';
 import img6 from './images/profile6.png';
+
 
 export default class Lender extends Component {
     constructor() {
@@ -31,6 +35,7 @@ export default class Lender extends Component {
         this.getBalance = this.getBalance.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     getBalance() {
@@ -57,10 +62,13 @@ export default class Lender extends Component {
         console.log(recipient);
         var orig = ethnode.accounts[0];
         var amount = 1000;
-        alphacontract.send.sendTransaction(recipient, amount, { from: orig, to: recipient}, function (error, result) {
+        alphacontract.send.sendTransaction(recipient, amount, { from: orig, to: recipient }, function (error, result) {
             var val = result;
             console.log(val);
         }.bind(this));
+    }
+    handleClose() {
+        this.setState({ showModal: false });
     }
 
     render() {
@@ -68,6 +76,8 @@ export default class Lender extends Component {
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             margin: '50',
+            fontFamily: 'Montserrat',
+            fontSize: '20px'
             //textAlign: "center"
         }
         var buttonStyle = {
@@ -119,32 +129,60 @@ export default class Lender extends Component {
                         <img src={img1} />
                         <p className="legend">Amount Requested - 1000 INR</p>
                         <p className="legend">Loan Duration - 1 Week</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle} onClick={this.handleOpenModal}>
+                        <Button bsStyle="success" bsSize="large" style={buttonStyle} onClick={this.handleOpenModal}>
                             User 1
     </Button>
                         <ReactModal style={modalStyle}
                             isOpen={this.state.showModal}
                             contentLabel="Minimal Modal Example"
                         >
-                            <h2 className="App-intro">
+                            <h2 className="App">
                                 Extend Loan Request of 1000 INR to User 1
             </h2> <br />
-                            <Button bsStyle="primary" bsSize="large" style={buttonStyle} onClick={this.handleCloseModal}>Send Request</Button>
+                            <h2 className="App">
+                                User 1's Credit History
+            </h2> <br />
+                            <div className="App">
+                                <PieChart
+                                    size={400}
+                                    innerHoleSize={200}
+                                    data={[
+                                        { key: 'Paid before deadline', value: 100, color: '#aaac84' },
+                                        { key: 'Paid on deadline', value: 200, color: '#dce7c5' },
+                                        { key: 'Defaulted', value: 50, color: '#e3a51a' }
+                                    ]}
+                                />
+                            </div>
+                            <Legend styles={{
+                                align: 'center', borderRadius: '12px',
+                                fontSize: '1.8em'
+                            }} data={[
+                                { key: 'Paid before deadline', value: 100, color: '#aaac84' },
+                                { key: 'Paid on deadline', value: 200, color: '#dce7c5' },
+                                { key: 'Defaulted', value: 50, color: '#e3a51a' }
+                            ]} dataId={'key'} config={[
+                                { color: '#aaac84' },
+                                { color: '#dce7c5' },
+                                { color: '#e3a51a' }
+                            ]} />
+
+                            <Button bsStyle="primary" bsSize="large" style={buttonStyle} onClick={this.handleCloseModal}>Send Request</Button> <br />
+                            <Button bsSize="large" style={buttonStyle} onClick={this.handleClose}>Cancel</Button>
                         </ReactModal>
                     </div>
                     <div style={style}>
                         <img src={img2} />
                         <p className="legend">Amount Requested - 50000 INR</p>
                         <p className="legend">Loan Duration - 6 Months</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle}>
+                        <Button bsStyle="warning" bsSize="large" style={buttonStyle}>
                             User 2
     </Button>
                     </div>
                     <div style={style}>
                         <img src={img3} />
-                        <p className="legend">Amount Requested - 50000 INR</p>
+                        <p className="legend">Amount Requested - 120000 INR</p>
                         <p className="legend">Loan Duration - 6 Months</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle}>
+                        <Button bsStyle="danger" bsSize="large" style={buttonStyle}>
                             User 3
     </Button>
                     </div>
@@ -152,7 +190,7 @@ export default class Lender extends Component {
                         <img src={img4} />
                         <p className="legend">Amount Requested - 50000 INR</p>
                         <p className="legend">Loan Duration - 6 Months</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle}>
+                        <Button bsStyle="success" bsSize="large" style={buttonStyle}>
                             User 4
     </Button>
                     </div>
@@ -160,15 +198,15 @@ export default class Lender extends Component {
                         <img src={img5} />
                         <p className="legend">Amount Requested - 50000 INR</p>
                         <p className="legend">Loan Duration - 6 Months</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle}>
+                        <Button bsStyle="warning" bsSize="large" style={buttonStyle}>
                             User 5
     </Button>
                     </div>
                     <div style={style}>
                         <img src={img6} />
-                        <p className="legend">Amount Requested - 50000 INR</p>
+                        <p className="legend">Amount Requested - 80000 INR</p>
                         <p className="legend">Loan Duration - 6 Months</p>
-                        <Button bsStyle="primary" bsSize="large" style={buttonStyle}>
+                        <Button bsStyle="success" bsSize="large" style={buttonStyle}>
                             User 6
     </Button>
                     </div>

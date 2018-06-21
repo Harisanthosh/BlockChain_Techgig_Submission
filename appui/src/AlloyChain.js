@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import logo from './alphaalloy.jpg';
+import adminlogo from './adminlogo.png';
 import './App.css';
 import { alphacontract } from "./Setup";
 import { ShowMovies } from "./ShowMovies";
@@ -14,6 +15,8 @@ import {
 } from 'react-router-dom';
 import Lender from './Lender'
 import Borrower from './Borrower'
+import Admin from './Admin'
+import DryRun from './DryRun'
 
 const PostsData = [
     {
@@ -57,26 +60,49 @@ export default class AlloyChain extends Component {
             )
         });
     }
+
     render() {
         return (
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo-static" alt="logo" />
+                    <img src={adminlogo} className="Admin-static" alt="adminlogo" />
                     <h1 className="App-title">Welcome to AlloyChain</h1>
                 </header>
-                <p className="App-intro">
+                <p className="styleFont">
                     A peer-to-peer Micro lending platform !
-            </p>
-                <div className="app-card-list" id="app-card-list">
-                    {
-                        Object
-                            .keys(this.state.posts)
-                            .map(key => <Card key={key} index={key} details={this.state.posts[key]} />)
-                    }
+        </p>
+                <div className="backGround">
+                    <div className="app-card-list" id="app-card-list">
+                        {
+                            Object
+                                .keys(this.state.posts)
+                                .map(key => <Card key={key} index={key} details={this.state.posts[key]} />)
+                        }
+                        {
+                            (window.location.href.split("chain/")[1] === "0x53f48d576d500000ec367a5dfa9b34e9c51cbb5c")
+                                ? <Button style={{ float: 'right' }}>
+                                    <Link to="/admin">Admin Panel</Link>
+                                </Button>
+                                : null
+                        }
+                        {/* <Button style={{ float: 'right' }}>
+                            <Link to="/admin">Admin Panel</Link>
+                        </Button> */}
+                    </div>
                 </div>
+                <Button style={{
+                    color: "purple",
+                    margin: "20px",
+                    fontSize: "20px",
+                    //backgroundColor: 'purple'      
+                }}>
+                    <Link to="/dryrun">Load Run</Link>
+                </Button>
+
                 {/* <div className="movie-table">
-              <ShowMovies movies={this.state.movies} vote={this.handleVoting}/>
-            </div> */}
+            <ShowMovies movies={this.state.movies} vote={this.handleVoting}/>
+        </div> */}
             </div>
         );
     }
@@ -86,7 +112,8 @@ class ButtonCard extends React.Component {
     render() {
         var style = {
             color: "purple",
-            margin: "20px"
+            margin: "20px",
+            fontSize: "20px",
             //backgroundColor: 'purple'      
         };
         var pathVal = this.props.path;
@@ -99,8 +126,8 @@ class ButtonCard extends React.Component {
         return (
             <div>
                 {/* <Button style={style}>
-                    <Link to="/lender">Find out more</Link>
-                </Button> */}
+                <Link to="/lender">Find out more</Link>
+            </Button> */}
                 {buttonDisp}
                 {/* <Route path={"lender"} component={Lender} /> */}
             </div>
@@ -113,7 +140,7 @@ class CardHeader extends React.Component {
     render() {
         const { image, category } = this.props;
         var style = {
-            color: "gold",
+            color: "#BA274A",
             backgroundImage: 'url(' + image + ')',
             padding: '250px 0',
             backgroundSize: 'cover',
@@ -125,7 +152,7 @@ class CardHeader extends React.Component {
                 <div>
                     {/* <p>Powered by Smart Contracts</p> */}
 
-                    <h2>{this.props.title}</h2>
+                    <h2 >{this.props.title}</h2>
 
 
                 </div>
@@ -140,7 +167,7 @@ class CardBody extends React.Component {
         return (
             <div>
                 <p >{this.props.text}</p>
-                <ButtonCard path={this.props.pathRoute}/>
+                <ButtonCard path={this.props.pathRoute} />
             </div>
 
         )

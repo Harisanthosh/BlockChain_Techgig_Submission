@@ -53,7 +53,7 @@ export default class Borrower extends Component {
         console.log(val);
         var bal = val.c[0];
         console.log(bal);
-        bal = 1000;
+        // bal = 1000;
         this.setState({ visible: true, value: bal });
         // alphacontract.balances.call(recipient, function (error, result) {
         //     var val = result;
@@ -98,7 +98,9 @@ export default class Borrower extends Component {
             align: "center",
             padding: "12px 20px",
             margin: "8px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            fontFamily: 'Montserrat',
+            fontSize: '20px'
         }
         const buttonStyle = {
             align: "center",
@@ -135,8 +137,7 @@ export default class Borrower extends Component {
                         Amount Needed
           <input style={style} type="text" value={this.state.value} onChange={this.handleChange} />
                     </label> <br />
-                    <label style={style}>.
-                        Proposal
+                    <label style={style}>Proposal
           <textarea style={style} value={this.state.value} onChange={this.handleChange} />
                     </label>.<br />
                     <label>
